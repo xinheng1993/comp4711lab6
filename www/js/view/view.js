@@ -1,109 +1,65 @@
-
-
-var view = {
-    init:function(){
-        $(".container").append(
-            view.question(model.getQid())
-        )
-    },
-    addBtn:function(q_id){
-        $(".container").append(
-            view.question(q_id)
-        )        
-    },
-    delBtn:function(id){
-        $('#'+id).remove()
-    },
-    loadData :function(i,data){
-        $('textarea','#'+i).val(data[i].question);
-        for(let j = 0; j<4;j++){
-            $('#a'+i+j).val(data[i].answer[j])
+var view={
+    //init all componts of the game
+    init:function(definition,name){
+        $(".letter_hide").remove();
+        $(".deftext").remove();
+        $(".letterbtn").remove();
+        console.log("answer:",answer);
+        for(let i = 0; i<answer.length;i++){
+            $(".word").append("<h1 id='"+i+"' class='letter_hide'>*</h1>");
         }
-        $('#s'+i+data[i].correct).attr('checked', true);
+        for (let i = 65; i <= 90; i++) {
+            $(".btn-group-lg").append("<button type='button' id = '"+String.fromCharCode(i)+"' class='letterbtn btn btn-primary'>"+String.fromCharCode(i)+"</button>");
+        }
+        $(".definition").append("<h7 class='deftext'>Definition:   "+definition+"</h7>");
+        $("#chance").html(7);
+        $("#score").html(0);
+        view.setuser(name);
+        console.log("user:");
     },
-    save_sucess:function(){
-        $(".info").remove();
-        $(".notify").append("<div class='info sucess'>save sucess</div>")
+    //reset the game
+    reload:function(definition){
+        $(".letter_hide").remove();
+        $(".deftext").remove();
+        console.log(answer)
+        for(let i = 0; i<answer.length;i++){
+            $(".word").append("<h1 id='"+i+"' class='letter_hide'>*</h1>");
+        }
+        $(".letterbtn").css({backgroundColor: '','border-color':''});
+        $(".letterbtn").prop('disabled',false);
+        $(".definition").append("<h7 class='deftext'>Definition:   "+definition+"</h7>");
+        $("#chance").html(7);
     },
-    save_fail:function(){
-        $(".info").remove();
-        $(".notify").append("<div class='info fail'>save failed, please check the error area</div>")
+    //if cannot find the letter in the word, chance - 1 change btn status
+    find_false:function(word){
+        $("#chance").html($("#chance").html()-1);
+        $("#"+word).prop('disabled',true);
+        $("#"+word).css({backgroundColor: 'red','border-color':'red'});
+        $("#score").html(parseInt($("#score").html())-1);
     },
-    save_without:function(){
-        $(".info").remove();
-        $(".notify").append("<div class='info fail'>save failed, no questions</div>")
+    //if find the letter in the word, score + 1 change btn status
+    find_sucess:function(word,get_score){
+        $("#"+word).prop('disabled',true);
+        $("#"+word).css({backgroundColor: 'green','border-color':'green'});
+        $("#score").html(parseInt($("#score").html())+get_score);     
     },
-    error :function(selector1,selector2){
-        $(selector1,selector2).css("background-color", "pink");
+    //show game over
+    game_over:function(){
+        $(".letter_hide").remove();
+        $(".deftext").remove();
+        $(".definition").append("<div class='deftext'>Answer: " + answer+"</div>");
+        $(".word").append("<h1 class='letter_hide'>GAME OVER</h1>");
+        $(".letterbtn").prop('disabled',true);        
     },
-    checked:function(selector1,selector2){
-        $(selector1,selector2).css("background-color", "");
+    //show sucess
+    game_sucess:function(){
+        $(".letter_hide").remove();
+        $(".deftext").remove();
+        $(".definition").append("<div class='deftext'>Answer: " + answer+"</div>");
+        $(".word").append("<h1 class='letter_hide'>WINNER</h1>");
+        $(".letterbtn").prop('disabled',true);        
     },
-    radioError:function(selector1,selector2){
-        $(selector1).parent(selector2).css("background-color", "pink")
-    },
-    radioChecked:function(selector1,selector2){
-        $(selector1).parent(selector2).css("background-color", "");
-    },
-    removeAll : function(){
-        $(".question_group").remove();
-    },
-    question:function(id){
-        return '<div class="question_group" id='+id+'>'+
-                '<div class="form-group">'+
-                    '<div class="q_title">'+
-                        '<div><label><h5>Question</h5></label></div>'+
-                        '<div class="easy_hard">'+
-                            '<div class="radio_tag" id=s'+id+1+'>'+
-                                '<label class="label"><input type="radio" name="tag'+id+'" id=tag'+id+0+' value="easy" checked><h5>easy</h5></label>'+
-                            '</div>'+
-                            '<div class="radio_tag" id=s'+id+2+'>'+
-                                '<label class="label"><input type="radio" name="tag'+id+'" id=tag'+id+1+' value="hard"><h5>hard</h5></label>'+
-                            '</div>'+
-                        '</div>'+
-                    '</div>'+
-                    '<textarea class="form-control" rows="5" id='+id+' value=""></textarea>'+
-                '</div>'+
-                
-                '<div class="answers">'+
-                    '<label><h5>Answer:</h5></label>'+
-                    '<div class="input-group answer_group">'+
-                        '<div class="input-group-prepend">'+
-                        '<div class="input-group-text q'+id+'">'+
-                        '<input type="radio" name="q'+id+'" id=s'+id+0+'>'+
-                        '</div>'+
-                    '</div>'+
-                    '<input type="text" class="form-control" id=a'+id+0+' value="">'+
-                    '</div>'+
-                    '<div class="input-group answer_group">'+
-                        '<div class="input-group-prepend">'+
-                            '<div class="input-group-text q'+id+'">'+
-                            '<input type="radio" name="q'+id+'" id=s'+id+1+'>'+
-                            '</div>'+
-                        '</div>'+
-                        '<input type="text" class="form-control" id=a'+id+1+' value="">'+
-                    '</div>'+
-                    '<div class="input-group answer_group">'+
-                        '<div class="input-group-prepend">'+
-                            '<div class="input-group-text q'+id+'">'+
-                            '<input type="radio" name="q'+id+'" id=s'+id+2+'>'+
-                            '</div>'+
-                        '</div>'+
-                        '<input type="text" class="form-control" id=a'+id+2+' value="">'+
-                    '</div>'+
-                    '<div class="input-group answer_group">'+
-                        '<div class="input-group-prepend">'+
-                            '<div class="input-group-text q'+id+'">'+
-                            '<input type="radio" name="q'+id+'" id=s'+id+3+'>'+
-                            '</div>'+
-                        '</div>'+
-                        '<input type="text" class="form-control" id=a'+id+3+' value="">'+
-                    '</div>'+
-                '</div>'+
-                '<div class="delete-btn">'+
-                    '<button type="button" class="btn btn-danger del" id='+id+'>Delete</button>'+
-                '</div>'+
-            '</div>'
-    }
-    
+    setuser:function(name){
+        $(".user").html(name)
+    }  
 }

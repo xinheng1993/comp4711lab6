@@ -2,6 +2,7 @@ let express = require('express');
 let config = require('./config');
 let bodyParser = require('body-parser');
 let question = require('./route/question.js')
+let login = require('./route/login.js')
 let app = express();
 let port = config.port;
 
@@ -13,7 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use('/question',question);
-
+app.use('/login',login);
 
 app.use(express.static(__dirname + '/www'));
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="lab6" />
+  <title>Lab6</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/view/view.js"></script>
+  <script src="js/model/model.js"></script>
+  <script src="js/controller/controller.js"></script>
+
+
+</head>
+<body>
+    <div class="row header">
+        <div class="col-lg-4 title">Hangman Game</div>
+        <div class="col-lg-4 title">score:<text id="score"> 0 </text></div>
+        <div class="col-lg-4 title user"></div>
+    </div>
+    <div class="container">
+        <div class="row word"></div>
+        <div class="definition"></div>
+        <div class="keyboard">
+            <div class="btn-group btn-group-lg btngroup"></div>
+        </div>
+        <div class="chance">You have: [ <text id="chance"> 7 </text> ] chances</div>
+        <button id="reload" class="btn-danger mybtn">reset</button>
+    </div>
+</body>
+</html>

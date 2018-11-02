@@ -1,127 +1,65 @@
 
-$(function(){
-    //localStorage.setItem("library","");
-    view.init();
-})
+$(document).ready(function(){
+    model.init()
 
-let library = [];
-let quiz = {
-    question:{},
-    answer:[],
-    correct:{},
-    tag:{}
-};
-let Qid = 0;
+});
+//the words collection
+let dictionary=[
+    {word:"Tattoo",def:"a form of body modification where a design is made by inserting ink"},
+    {word:"electricity",def:"is the set of physical phenomena associated with the presence and motion of electric charge."},
+    {word:"Apple",def:"iphon,ipad"},
+    {word:"red",def:"any of various colors resembling the color of blood"},
+    {word:"ability",def:"The word is a noun that refers to the skills that a person has"},
+    {word:"welter",def:"turmoil a bewildering jumble"},
+    {word:"Catch",def:"seize, grasp"},
+    {word:"abandon",def:"forsake, desert, to cast off"},
+    {word:"abject",def:"mean, degraded, miserable"},
+    {word:"above ",def:"on the upside, higher than, more than"}
+];
 
-var model = {
-    getLibrary:function(){
-        return library;   
+let answer;
+let hit;
+//let firebase = app_firebase;
+//model object which contains all model functions
+var model={
+    //initial the game
+    init:function(){
+        let choose;
+        // let user = firebase.auth().currentUser;
+        // let name;
+        // if (user != null) {
+        //     name = user.displayName;
+        //     uid = user.uid;
+        // }
+        hit = 0;
+        choose = Math.floor(Math.random() * (dictionary.length - 1));
+        answer = dictionary[choose].word;
+        view.init(dictionary[choose].def,name);
     },
-    getQid :function(){
-        return Qid;
-    },
-    setQid :function(newId){
-        Qid = newId;
-    },
-    save:function(){       
-        let radio = false;
-        let answer = [false,false,false,false];
-        let textarea = false;
-        library = [];
-        for(let i = 0; i<= Qid;i++){
-            quiz = {
-                question:{},
-                answer:[],
-                correct:{},
-                tag:{}
-            }
-            console.log(Qid);
-            if($('textarea','#'+i)){
-                if($('textarea','#'+i).val()){
-                    if($('textarea','#'+i).val().length == 0){
-                        textarea = false;
-                        view.error('textarea','#'+i);
-                        
-                    }else{
-                        view.checked('textarea','#'+i)
-                        textarea = true;
-                        quiz.question = $('textarea','#'+i).val();
-                    }
-                }else{
-                    textarea = false;
-                    view.error('textarea','#'+i);
-                }
-            }            
-            if($("input[name='q"+i+"']")){
-                if($("input[name='q"+i+"']").index($("input[name='q"+i+"']").filter(':checked')) == -1){
-                    view.radioError("input[name='q"+i+"']",".q"+i);
-                    radio = false;
-                } else {
-                    view.radioChecked("input[name='q"+i+"']",".q"+i);
-                    quiz.correct = $("input[name='q"+i+"']").index($("input[name='q"+i+"']").filter(':checked'));
-                    radio = true;
-                }  
-            }  
-            for(let j = 0; j<4;j++){
-                if($('#a'+i+j)){
-                    if($('#a'+i+j).val()){
-                        if($('#a'+i+j).val().length == 0){
-                            answer[j] = false;
-                            view.error('#a'+i+j);
-                        }else{
-                            view.checked('#a'+i+j);
-                            answer[j] = true;
-                            quiz.answer.push($('#a'+i+j).val())
-                        }
-                    }else{
-                        answer[j] = false;
-                        view.error('#a'+i+j);
-                    }
-                }
-            }
-            for(let j = 0; j< 2; j++){
-                if($("#tag"+i+j).is(':checked')){
-                    quiz.tag = $("#tag"+i+j).val()
-                }
-            }
-            if(radio && answer[0] && answer[1] && answer[2] && answer[3] && textarea){
-                library.push(quiz)
+    //check if the letter user choosed is contained by the word
+    check_word:function(word){
+        let find = false;
+        let get_score = 0;
+        for(var i = 0; i<answer.length;i++){
+            if(answer[i].toLowerCase() === word.toLowerCase()){
+                $("#"+i).html(word)
+                hit++;
+                find = true;
+                get_score++;
             }
         }
-        console.log(textarea,answer,radio);
-        console.log(library);
-        if($('.question_group').length == 0){
-            console.log($('.question_group').length)
-            //localStorage.setItem("library",JSON.stringify(library));
-            view.save_without();
+        if(find === false){
+            view.find_false(word)
         }else{
-            if(radio && answer[0] && answer[1] && answer[2] && answer[3] && textarea){
-                //localStorage.setItem("library",JSON.stringify(library));
-                console.log("send request")
-                let data = {
-                    data:library
-                }
-                console.log(data);
-                $.post('question/save',data,function(data,status){
-                    console.log(data,status);
-                    if(data.status == "ojbk"){
-                        view.save_sucess();
-                    }else{
-                        view.save_fail();
-                    }
-                });
-            }else{ 
-                view.save_fail()
-            }
+            view.find_sucess(word,get_score)
         }
+        controller.check_game_over();
     },
-    delData:function(id){
-        if(library[id]){
-            library.splice(id,1);
-            console.log(library)
-            localStorage.setItem("library",JSON.stringify(library));
-            view.removeAll();
-        }
-        location.reload();
-    },
+    reload:function(){
+        let choose;
+        hit = 0;
+        choose = Math.floor(Math.random() * (dictionary.length - 1));
+        answer = dictionary[choose].word;
+        view.reload(dictionary[choose].def);
+    }
 }
