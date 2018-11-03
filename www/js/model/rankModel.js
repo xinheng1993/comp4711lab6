@@ -5,6 +5,7 @@ $(document).ready(()=>{
 let firebase = app_firebase;
 var model = {
     init:()=>{
+        view.loading();
         firebase.auth().onAuthStateChanged((user)=> {
             if (user) {
                 name = user.displayName;

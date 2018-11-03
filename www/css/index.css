@@ -9,11 +9,12 @@
     border:2px solid white;
     text-align: center;
     color: white;
-    font-size: 3pc;
+    font-size: 2pc;
 }
 .mybtn{
-    width: 10%;
+    width: 100%;
     border-radius: 10px;
+    margin:2px;
 }
 .btngroup{
     width: 65%;
@@ -55,6 +56,6 @@
 .buttons{
     display:flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     margin-top:2%;
 }

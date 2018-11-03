@@ -28,6 +28,7 @@ let get_score;
 var model={
     //initial the game
     init:()=>{
+        view.loading();
         let choose;
         //read user name
         firebase.auth().onAuthStateChanged((user)=> {
@@ -41,7 +42,7 @@ var model={
         hit = 0;
         //read database
         let ref = firebase.database().ref("/dictionary/");
-        ref.once('value').then(function(snapshot) {
+        ref.once('value').then((snapshot)=> {
             dictionary = snapshot.val();
             choose = Math.floor(Math.random() * (dictionary.length - 1));
             answer = dictionary[choose].word;
@@ -67,6 +68,7 @@ var model={
         }
         controller.check_game_over();
     },
+    //skip current word
     next:()=>{
         let choose;
         hit = 0;
@@ -74,6 +76,7 @@ var model={
         answer = dictionary[choose].word;
         view.next(dictionary[choose].def);
     },
+    //reset the game
     reload:()=>{
         let choose;
         hit = 0;
@@ -81,6 +84,7 @@ var model={
         answer = dictionary[choose].word;
         view.reload(dictionary[choose].def);
     },
+    //submit score only update if current score is higher than order one
     submitscore:()=>{
         console.log(get_score);
         firebase.database().ref("/rank/"+uid).once("value", snapshot => {

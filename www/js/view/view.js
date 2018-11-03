@@ -1,4 +1,7 @@
 var view={
+    loading:()=>{
+        $(".word").append("<h1 class='letter_hide'>Loading...</h1>");
+    },
     //init all componts of the game
     init:(definition)=>{
         $(".letter_hide").remove();
