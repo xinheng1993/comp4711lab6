@@ -1,15 +1,18 @@
 .header{
     margin:10px;
-    background-color: bisque;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color:rgba(0, 119, 255, 0.781)
 }
 .title{
     border:2px solid white;
     text-align: center;
+    color: white;
+    font-size: 3pc;
 }
 .mybtn{
+    width: 10%;
     border-radius: 10px;
 }
 .btngroup{
@@ -48,4 +51,10 @@
 }
 .deftext{
     align-self: center;
+}
+.buttons{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top:2%;
 }

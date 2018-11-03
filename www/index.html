@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="css/index.css">
   <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="js/firebase.js"></script>
-  <script src="js/view/view.js"></script>
-  <script src="js/model/model.js"></script>
-  <script src="js/controller/controller.js"></script>
+  <script src="../firebase.js"></script>
+  <script src="./js/view/view.js"></script>
+  <script src="./js/model/model.js"></script>
+  <script src="./js/controller/controller.js"></script>
 
 
 </head>
@@ -30,7 +30,14 @@
             <div class="btn-group btn-group-lg btngroup"></div>
         </div>
         <div class="chance">You have: [ <text id="chance"> 7 </text> ] chances</div>
-        <button id="reload" class="btn-danger mybtn">reset</button>
+        
+        <div class="buttons">
+            <button id="next" class="btn-info mybtn">next</button>
+            <button id="reload" class="btn-info mybtn">reload</button>
+            <button id="rank" class="btn-primary mybtn">rank</button>
+            <button class="btn-danger mybtn" onclick="mainApp.logOut()">logout</button>
+        </div>
+        
     </div>
 </body>
 </html>

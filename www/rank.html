@@ -7,29 +7,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/login.css">
+  <link rel="stylesheet" href="css/rank.css">
   <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
-  <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="../firebase.js"></script>
-  <script src="./js/view/loginView.js"></script>
-  <script src="./js/model/loginModel.js"></script>
-  <script src="./js/controller/loginController.js"></script>
-  
+  <script src="./js/view/rankView.js"></script>
+  <script src="./js/model/rankModel.js"></script>
+  <script src="./js/controller/rankController.js"></script>
 
 
 </head>
 <body>
     <div class="row header">
-        <div class="col-lg-12 title">Login</div>
-    </div>
-    <div class="notify">
-
+        <div class="col-lg-4 title">Hangman Game</div>
+        <div class="col-lg-4 title">Rank</div>
+        <div class="col-lg-4 title user"></div>
     </div>
     <div class="container">
-        <div id="firebaseui-auth-container"></div>
-        <div id="loader">Loading...</div>
+        <div class="rank">
+
+        </div>
+        
+        <div class="buttons">
+            <button id="back" class="btn-primary mybtn">Back</button>
+            <button class="btn-danger mybtn" onclick="mainApp.logOut()">logout</button>
+        </div>
+        
     </div>
 </body>
 </html>

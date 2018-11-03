@@ -1,4 +1,5 @@
 var app_firebase = {};
+
 (function(){
   // Initialize Firebase
   var config = {

@@ -1,4 +1,4 @@
-$(function(){
+$(()=>{
     $('body').on('click','.signup',function(){
         controller.signup()
     })
@@ -11,10 +11,10 @@ $(function(){
 })
 
 var controller ={
-    signup:function(){
+    signup:()=>{
         view.changeTosignup()
     },
-    submit:function(){
+    submit:()=>{
         let first = $('.password').val()
         let second = $('.confirm').val()
         if(first !== second || (!first||!second)){
