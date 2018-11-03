@@ -5,12 +5,13 @@ $(document).ready(()=>{
 let firebase = app_firebase;
 var model = {
     init:()=>{
-        view.loading();
+        //check login
+        controller.check_login();
+        view.loading
+        //read user name
         firebase.auth().onAuthStateChanged((user)=> {
             if (user) {
                 name = user.displayName;
-                uid = user.uid;
-                email = user.email;
                 view.setuser(name);
             }
         });

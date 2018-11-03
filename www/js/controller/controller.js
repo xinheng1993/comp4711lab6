@@ -1,23 +1,3 @@
-var mainApp = {};
-(()=>{
-    let firebase = app_firebase;
-    var uid = null;
-    firebase.auth().onAuthStateChanged((user)=> {
-        if (user) {
-          // User is signed in.
-          uid = user.uid;
-        }else{
-            uid = null;
-            window.location.replace("login.html"); 
-        }
-      });
-      function logout(){
-          firebase.auth().signOut();
-      }
-      mainApp.logOut = logout;
-})()
-
-
 $(()=>{
     //tell model to check the letter which user choosed is contained by the word
     $('body').on('click','.letterbtn',()=>{
@@ -34,10 +14,22 @@ $(()=>{
     //go to rank page
     $('body').on('click','#rank',()=>{
         window.location.replace("rank.html"); 
-    })    
+    })
+    $('body').on('click','#logout',()=>{
+        let firebase = app_firebase;
+        firebase.auth().signOut();
+    })     
 })
 
 var controller ={
+    check_login:()=>{
+        let firebase = app_firebase;
+        firebase.auth().onAuthStateChanged((user)=> {
+            if (!user) {
+                window.location.replace("login.html"); 
+            }
+          });
+    },
     //check if the game should close. display corresponding text
     check_game_over:()=>{
         if($("#chance").html()==0){

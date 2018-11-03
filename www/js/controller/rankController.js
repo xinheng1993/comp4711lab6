@@ -1,25 +1,22 @@
-var mainApp = {};
-(()=>{
-    let firebase = app_firebase;
-    var uid = null;
-    firebase.auth().onAuthStateChanged((user)=> {
-        if (user) {
-          // User is signed in.
-          uid = user.uid;
-        }else{
-            uid = null;
-            window.location.replace("login.html"); 
-        }
-      });
-      function logout(){
-          firebase.auth().signOut();
-      }
-      mainApp.logOut = logout;
-})()
-
 $(()=>{
     //go back to game
     $('body').on('click','#back',()=>{
         window.location.replace("index.html");
     })
+    $('body').on('click','#logout',()=>{
+        let firebase = app_firebase;
+        firebase.auth().signOut();
+    })
+    controller.check_login();
 })
+
+var controller = {
+    check_login:()=>{
+        let firebase = app_firebase;
+        firebase.auth().onAuthStateChanged((user)=> {
+            if (!user) {
+                window.location.replace("login.html"); 
+            }
+          });
+    }
+}

@@ -28,6 +28,8 @@ let get_score;
 var model={
     //initial the game
     init:()=>{
+        //check login
+        controller.check_login();        
         view.loading();
         let choose;
         //read user name
