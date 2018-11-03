@@ -85,15 +85,17 @@ var model={
         console.log(get_score);
         firebase.database().ref("/rank/"+uid).once("value", snapshot => {
             if (snapshot.exists()){
-               let postData={
-                score: $("#score").html(),
-                email: email,
-                user : name
-               }
-                firebase.database().ref('/rank/' + uid).update(postData);
+                if(snapshot.val().score < parseInt($("#score").html())){
+                    let postData={
+                        score: parseInt($("#score").html()),
+                        email: email,
+                        user : name
+                       }
+                        firebase.database().ref('/rank/' + uid).update(postData);
+                }
              }else{  
                 firebase.database().ref('/rank/' + uid).set({
-                    score: $("#score").html(),
+                    score: parseInt($("#score").html()),
                     email: email,
                     user : name
                 });

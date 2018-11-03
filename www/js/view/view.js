@@ -71,7 +71,8 @@ var view={
         $(".deftext").remove();
         $(".definition").append("<div class='deftext'>Answer: " + answer+"</div>");
         $(".word").append("<h1 class='letter_hide'>WINNER</h1>");
-        $(".letterbtn").prop('disabled',true);        
+        $(".letterbtn").prop('disabled',true);
+        controller.submitscore();         
     },
     setuser:(name)=>{
         $(".user").html(name)

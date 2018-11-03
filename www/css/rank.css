@@ -26,3 +26,44 @@
     justify-content: space-around;
     margin-top:2%;
 }
+.rank{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+}
+.rankrow{
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color:rgba(0, 119, 255, 0.781);
+    border-radius: 10px;
+}
+.rankborder{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color:rgba(0, 119, 255, 0.781);
+    border-radius: 10px;
+}
+.rankdata{
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color:rgba(0, 119, 255, 0.781);
+    border-radius: 10px;
+}
+.rankfront{
+    border:1px solid white;
+    text-align: center;
+    color: white;
+    font-size: 2pc;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
