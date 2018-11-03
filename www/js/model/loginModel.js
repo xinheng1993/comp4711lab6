@@ -1,3 +1,7 @@
+/*
+    test url: www.404not-found.com
+    git url :https://github.com/xinheng1993/comp4711lab6
+*/
 $(function(){
     model.init();
 })

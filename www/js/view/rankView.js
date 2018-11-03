@@ -1,4 +1,7 @@
-
+/*
+    test url: www.404not-found.com
+    git url :https://github.com/xinheng1993/comp4711lab6
+*/
 var view = {
     loading:()=>{
         $(".rankborder").append('<div class="col-lg-12 loading"><div><h1>Loading</h1></div></div>')
