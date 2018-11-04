@@ -4,34 +4,40 @@
 */
 $(function(){
     model.init();
+    controller.check_login()
 })
 var model = {
-    init:()=>{
-        controller.check_login();
-        let uiConfig = {
-            callbacks: {
-              signInSuccessWithAuthResult: (authResult, redirectUrl)=>{
-                // User successfully signed in.
-                // Return type determines whether we continue the redirect automatically
-                // or whether we leave that to developer to handle.
-                return true;
-              },
-              uiShown: ()=> {
-                // The widget is rendered.
-                // Hide the loader.
-                document.getElementById('loader').style.display = 'none';
-              }
-            },
-            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-            signInFlow: 'popup',
-            signInSuccessUrl: 'index.html',
-            signInOptions: [
-              // Leave the lines as is for the providers you want to offer your users.
-              firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            ],
-            // Terms of service url.
-            tosUrl: 'index.html',
-        };
-        view.init(uiConfig);
+  init:()=>{
+    view.init();
+  },
+  signup_user:()=>{
+    let email = $('.email').val()
+    let name = $('.username').val()
+    let first = $('.password').val()
+    let second = $('.confirm').val()
+    if(first !== second || (!first||!second)){
+        view.error('.password')
+        view.error('.confirm')
+        view.differentpassword()
+    }else{
+      let firebase = app_firebase;
+        firebase.auth().createUserWithEmailAndPassword(email, first).then((data)=> {
+            console.log("create user:",data.user)
+            data.user.updateProfile({displayName:name}).then(()=>{controller.check_login()});    
+          }).catch((error) =>{
+            console.log(error);
+            if(error.code == "auth/invalid-email"){
+                view.error('.email');
+                view.error_message("invalid-email");
+            }else if(error.code == "auth/email-already-in-use"){
+                view.error('.email');
+                view.error_message("email-already-in-use")
+            }else if(error.code == "auth/weak-password"){
+                view.error('.password');
+                view.error('.confirm');
+                view.error_message("Password should be at least 6 characters")
+            }
+        });       
     }
+  }
 }

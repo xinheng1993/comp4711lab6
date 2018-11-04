@@ -38,6 +38,7 @@ var model={
         //read user name
         firebase.auth().onAuthStateChanged((user)=> {
             if (user) {
+                console.log(user);
                 name = user.displayName;
                 uid = user.uid;
                 email = user.email;
