@@ -4,26 +4,29 @@
 */
 $(function(){
     model.init();
-    controller.check_login()
 })
 var model = {
   init:()=>{
     view.init();
   },
   signup_user:()=>{
-    let email = $('.email').val()
-    let name = $('.username').val()
-    let first = $('.password').val()
-    let second = $('.confirm').val()
+    let email = $('.email').val();
+    let name = $('.username').val();
+    let first = $('.password').val();
+    let second = $('.confirm').val();
     if(first !== second || (!first||!second)){
-        view.error('.password')
-        view.error('.confirm')
-        view.differentpassword()
+        view.error('.password');
+        view.error('.confirm');
+        view.differentpassword();
+    }else if(!name){
+        view.error('.username');
+        view.error_message("please enter you username")
     }else{
       let firebase = app_firebase;
         firebase.auth().createUserWithEmailAndPassword(email, first).then((data)=> {
-            console.log("create user:",data.user)
-            data.user.updateProfile({displayName:name}).then(()=>{controller.check_login()});    
+            console.log("create user:",data.user);
+            data.user.updateProfile({displayName:name});
+                //.then(()=>{controller.check_login();});
           }).catch((error) =>{
             console.log(error);
             if(error.code == "auth/invalid-email"){
@@ -37,7 +40,7 @@ var model = {
                 view.error('.confirm');
                 view.error_message("Password should be at least 6 characters")
             }
-        });       
+        });
     }
   }
 }

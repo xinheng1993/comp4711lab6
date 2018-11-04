@@ -8,6 +8,7 @@ var view = {
     //     ui.start('#firebaseui-auth-container', uiConfig);
     // }，
     init:()=>{
+        controller.check_login();
         $('.buttons').remove();
         $('.enter').remove();
         $(".info").remove();
