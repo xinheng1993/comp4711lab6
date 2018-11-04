@@ -19,8 +19,7 @@ var view = {
                 '<input type="text" class="form-control enter password" placeholder="password">'
     },
     signup_inputs:()=>{
-        return  '<input type="text" class="form-control enter email" placeholder="email">'+
-                '<input type="text" class="form-control enter username" placeholder="username">'+
+        return  '<input type="text" class="form-control enter username" placeholder="username">'+
                 '<input type="text" class="form-control enter password" placeholder="password">'+
                 '<input type="text" class="form-control enter confirm" placeholder="enter same password">'                
     },
@@ -41,7 +40,7 @@ var view = {
         $(selector1,selector2).css("background-color", "");
     },
     changeTosignup:()=>{
-        $('.email').remove();
+        $(".info").remove();
         $('.password').remove();
         $('.inputarea').append(view.signup_inputs());
         $('.buttons').remove();

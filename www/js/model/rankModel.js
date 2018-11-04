@@ -9,6 +9,7 @@ $(document).ready(()=>{
 let firebase = app_firebase;
 var model = {
     init:()=>{
+        let email;
         //check login
         controller.check_login();
         view.loading
@@ -16,6 +17,7 @@ var model = {
         firebase.auth().onAuthStateChanged((user)=> {
             if (user) {
                 name = user.displayName;
+                email = user.email;
                 view.setuser(name);
             }
         });
@@ -24,7 +26,11 @@ var model = {
             let rank = snapshot.numChildren();
             snapshot.forEach((child)=>{
                 console.log(child.val().score)
-                view.loaddata(rank,child.val().user,child.val().email,child.val().score)
+                if(email == child.val().email){
+                    view.loaddata(rank,child.val().user,child.val().email,child.val().score,true)
+                }else{
+                    view.loaddata(rank,child.val().user,child.val().email,child.val().score,false)
+                }
                 rank = rank - 1;
             });
             
